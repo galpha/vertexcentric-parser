@@ -1,7 +1,7 @@
-import javafx.scene.paint.Color;
-
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -44,23 +44,24 @@ public class Main {
 
 
             if (vertexSet.isEmpty()) {
-                Vertex vex = new Vertex(lineTokens[0]);
-                vex.setEdge(lineTokens[1]);
-                vex.setRGB(Integer.toString(r), Integer.toString(g), Integer.toString(b));
+                Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
+                vex.setEdge(Integer.parseInt(lineTokens[1]));
+                vex.setRGB(r,g,b);
                 vertexSet.add(vex);
             } else {
 
-                Vertex vex = new Vertex(lineTokens[0]);
+
+                Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
 
                 if (vertexSet.contains(vex)) {
-                    if (vertexSet.get(Integer.parseInt(lineTokens[0])).getEdges().contains(lineTokens[1])) {
-                        vertexSet.get(Integer.parseInt(lineTokens[0])).setEdge(lineTokens[1]);
+                    if (!vertexSet.get(Integer.parseInt(lineTokens[0])).getEdges().contains(lineTokens[1])) {
+                        vertexSet.get(Integer.parseInt(lineTokens[0])).setEdge(Integer.parseInt(lineTokens[1]));
                     }
 
                 } else {
 
-                    vex.setEdge(lineTokens[1]);
-                    vex.setRGB(Integer.toString(r), Integer.toString(g), Integer.toString(b));
+                    vex.setEdge(Integer.parseInt(lineTokens[1]));
+                    vex.setRGB(r,g,b);
                     vertexSet.add(vex);
 
                 }
@@ -95,8 +96,8 @@ public class Main {
             }
 
             for (Vertex vertex : vertexSet) {
-                List<String> edgeList = vertex.getEdges();
-                for (String edge : edgeList) {
+                List<Integer> edgeList = vertex.getEdges();
+                for (Integer edge : edgeList) {
                     fileWriter.write(String.format("\t%s%s%s%s",
                             vertex.getId(),
                             DOT_OUT_EDGE,
@@ -115,5 +116,7 @@ public class Main {
 
 
     }
+
+
 
 }
