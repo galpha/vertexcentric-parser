@@ -24,8 +24,8 @@ public class Main {
 
         List<Vertex> vertexSet = new ArrayList<>();
 
-        final String path = "/home/gomezk/test/sgraph/smallgraph";
-        final String destpath = "/home/gomezk/test/sgraph/smallgraph.dot";
+        final String path = "/home/gomezk/test/facebook_combined.txt";
+        final String destpath = "/home/gomezk/test/facebook_combined.dot";
 
         System.out.println("Lese: " + path);
         BufferedReader br = new BufferedReader(new FileReader((path)));
@@ -51,18 +51,27 @@ public class Main {
             } else {
 
 
-                Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
+                Vertex newVex = new Vertex(Integer.parseInt(lineTokens[0]));
+                boolean allreadyEdge = false;
 
-                if (vertexSet.contains(vex)) {
-                    if (!vertexSet.get(Integer.parseInt(lineTokens[0])).getEdges().contains(lineTokens[1])) {
-                        vertexSet.get(Integer.parseInt(lineTokens[0])).setEdge(Integer.parseInt(lineTokens[1]));
+                if (vertexSet.contains(newVex)) {
+
+                    for(int i=0;i<vertexSet.size();i++){
+                        if(vertexSet.get(i).equals(newVex)){
+                            if(vertexSet.get(i).getEdges().contains(Integer.parseInt(lineTokens[1]))){
+                                allreadyEdge=true;
+                            }
+                            if(!allreadyEdge){
+                                vertexSet.get(i).setEdge(Integer.parseInt(lineTokens[1]));
+                            }
+                        }
                     }
 
                 } else {
 
-                    vex.setEdge(Integer.parseInt(lineTokens[1]));
-                    vex.setRGB(r,g,b);
-                    vertexSet.add(vex);
+                    newVex.setEdge(Integer.parseInt(lineTokens[1]));
+                    newVex.setRGB(r,g,b);
+                    vertexSet.add(newVex);
 
                 }
 

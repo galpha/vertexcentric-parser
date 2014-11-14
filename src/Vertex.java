@@ -51,8 +51,10 @@ public class Vertex {
         if(o == this) return true;
         if(!(o instanceof Vertex)) return false;
         Vertex vex = (Vertex) o;
-        return vex.getId() == id;
+        return  vex.getId() == id;
+
     }
+
 
     @Override
     public int hashCode() {return id;}
