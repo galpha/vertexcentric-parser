@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -11,33 +9,27 @@ import java.util.regex.Pattern;
  */
 public class Reader {
 
-  private ArrayList<Vertex> vertexList;
   private BufferedReader br;
 
-  public Reader()
-    throws FileNotFoundException {
-    vertexList = new ArrayList<>();
+  public Reader() {
   }
 
   public ArrayList<Vertex> read(String path, String pattern)
     throws IOException {
+
+    ArrayList<Vertex> vertexList = new ArrayList<>();
     br = new BufferedReader(new FileReader((path)));
     Pattern LINE_TOKEN_SEPARATOR = Pattern.compile(pattern);
-    System.out.println("Lese: "+path);
+    System.out.println("Lese: " + path);
     String line;
     while ((line = br.readLine()) != null) {
       String[] lineTokens = LINE_TOKEN_SEPARATOR.split(line);
 
-      Random randomGenerator = new Random();
-      int r = randomGenerator.nextInt(255);
-      int g = randomGenerator.nextInt(255);
-      int b = randomGenerator.nextInt(255);
-
 
       if (vertexList.isEmpty()) {
         Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
-        vex.setEdge(Integer.parseInt(lineTokens[1]));
-        vex.setRGB(r, g, b);
+        Vertex target = new Vertex(Integer.parseInt(lineTokens[1]));
+        vex.setEdge(target);
         vertexList.add(vex);
       } else {
 
@@ -54,15 +46,15 @@ public class Reader {
                 allreadyEdge = true;
               }
               if (!allreadyEdge) {
-                vertexList.get(i).setEdge(Integer.parseInt(lineTokens[1]));
+                vertexList.get(i).setEdge(new Vertex(Integer.parseInt
+                  (lineTokens[1])));
               }
             }
           }
 
         } else {
-
-          newVex.setEdge(Integer.parseInt(lineTokens[1]));
-          newVex.setRGB(r, g, b);
+          Vertex newTarget = new Vertex(Integer.parseInt(lineTokens[1]));
+          newVex.setEdge(newTarget);
           vertexList.add(newVex);
 
         }
@@ -75,6 +67,7 @@ public class Reader {
     br.close();
 
     return vertexList;
+
   }
 
 }

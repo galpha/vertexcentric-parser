@@ -21,12 +21,12 @@ public class Writer {
   private static final String DOT_LINE_ENDING = ";";
   private static final String DOT_FILLCOLOR_OPEN = "[fillcolor =\"";
 
-  public Writer(ArrayList<Vertex> vertexList, String destpath){
-    this.vertexList=vertexList;
-    this.destpath=destpath;
+  public Writer(ArrayList<Vertex> vertexList, String destpath) {
+    this.vertexList = vertexList;
+    this.destpath = destpath;
   }
 
-  public void writeDotFormat()
+  public void writeDot()
     throws IOException {
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(destpath));
 
@@ -51,12 +51,12 @@ public class Writer {
       }
 
       for (Vertex vertex : vertexList) {
-        List<Integer> edgeList = vertex.getEdges();
-        for (Integer edge : edgeList) {
+        List<Edge> edgeList = vertex.getEdges();
+        for (Edge edge : edgeList) {
           fileWriter.write(String.format("\t%s%s%s%s",
             vertex.getId(),
             DOT_OUT_EDGE,
-            edge,
+            edge.getTarget().getId(),
             DOT_LINE_ENDING
           ));
           fileWriter.newLine();
@@ -79,7 +79,7 @@ public class Writer {
       System.out.println("Set is empty");
     } else {
 
-      for(Vertex vertex: vertexList) {
+      for (Vertex vertex : vertexList) {
         fileWriter.write(String.format("%s %s",
           vertex.getId(),
           vertex.getEdgesAsString()));

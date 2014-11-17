@@ -1,6 +1,5 @@
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 /**
  * Created by gomezk on 13.11.14.
@@ -11,11 +10,15 @@ public class Vertex {
   private int r;
   private int g;
   private int b;
-  private ArrayList<Integer> edgeList;
+  private ArrayList<Edge> edgeList;
 
   public Vertex(int id) {
     this.id = id;
     edgeList = new ArrayList<>();
+    Random randomGenerator = new Random();
+    this.r = randomGenerator.nextInt(255);
+    this.g = randomGenerator.nextInt(255);
+    this.b = randomGenerator.nextInt(255);
   }
 
 
@@ -30,9 +33,9 @@ public class Vertex {
   }
 
   public String getEdgesAsString() {
-    String edgeString="";
-    for(Integer id: edgeList){
-      edgeString+=Integer.toString(id)+" ";
+    String edgeString = "";
+    for (Edge edge : edgeList) {
+      edgeString += edge.getTarget().getId() + " ";
     }
     return edgeString;
   }
@@ -44,23 +47,27 @@ public class Vertex {
 
   }
 
-  public Integer getR(){
+  public Integer getR() {
     return r;
   }
-  public Integer getG(){
+
+  public Integer getG() {
     return g;
   }
-  public Integer getB(){
+
+  public Integer getB() {
     return b;
   }
 
-  public ArrayList<Integer> getEdges() {
+  public ArrayList<Edge> getEdges() {
     return edgeList;
   }
 
-  public void setEdge(Integer vertexidto) {
-    edgeList.add(vertexidto);
+  public void setEdge(Vertex target) {
+
+    edgeList.add(new Edge(this, target));
   }
+
 
   @Override
   public boolean equals(Object o) {

@@ -11,22 +11,21 @@ public class Main {
     throws IOException {
 
 
-    final String inputpath = "/home/galpha/testgraphs/smallgraph.txt";
-    final String idwithvaluepath = "/home/galpha/testgraphs/smallgraphoutput";
-    final String destpath = "/home/galpha/testgraphs/smallgraph.dot";
+    final String inputpath = "/home/galpha/testgraphs/facebook_combined.txt";
+    final String giraphout = "/home/galpha/testgraphs/output";
+    final String destpath = "/home/galpha/testgraphs/facebook_mached.dot";
 
-    Reader inputReader = new Reader();
-    Reader outputReader = new Reader();
-
-
-    ArrayList<Vertex> inputList = inputReader.read(inputpath, "\t");
-    ArrayList<Vertex> outputList = outputReader.read(idwithvaluepath,"       ");
+    Reader reader = new Reader();
 
 
-  Compare comperator = new Compare(inputList,outputList);
+    ArrayList<Vertex> inputList = reader.read(inputpath, " ");
+    ArrayList<Vertex> outputList = reader.read(giraphout, "\t");
+
+
+    Compare comperator = new Compare(inputList, outputList);
 
     Writer writer = new Writer(comperator.match(), destpath);
-    writer.writeDotFormat();
+    writer.writeDot();
 
 
   }
