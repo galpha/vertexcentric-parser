@@ -41,9 +41,12 @@ public class Reader {
 
           for (int i = 0; i < vertexList.size(); i++) {
             if (vertexList.get(i).equals(newVex)) {
-              if (vertexList.get(i).getEdges()
-                .contains(Integer.parseInt(lineTokens[1]))) {
-                allreadyEdge = true;
+              ArrayList<Edge> edges= vertexList.get(i).getEdges();
+              for(Edge edge: edges){
+                if (edge.getTarget().equals(new Vertex(Integer.parseInt
+                  (lineTokens[1])))) {
+                  allreadyEdge = true;
+                }
               }
               if (!allreadyEdge) {
                 vertexList.get(i).setEdge(new Vertex(Integer.parseInt

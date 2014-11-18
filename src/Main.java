@@ -11,21 +11,21 @@ public class Main {
     throws IOException {
 
 
-    final String inputpath = "/home/galpha/testgraphs/facebook_combined.txt";
-    final String giraphout = "/home/galpha/testgraphs/output";
-    final String destpath = "/home/galpha/testgraphs/facebook_mached.dot";
+    final String inputpath = "/home/galpha/testgraphs/CA-GrQc.txt";
+    //final String giraphout = "/home/galpha/testgraphs/facebookoutput";
+    final String destpath = "/home/galpha/testgraphs/CA-GrQc_adl";
 
     Reader reader = new Reader();
 
 
-    ArrayList<Vertex> inputList = reader.read(inputpath, " ");
-    ArrayList<Vertex> outputList = reader.read(giraphout, "\t");
+    ArrayList<Vertex> inputList = reader.read(inputpath, "\t");
+    //ArrayList<Vertex> giraphoutputList = reader.read(giraphout, "\t");
 
 
-    Compare comperator = new Compare(inputList, outputList);
+    //Compare comperator = new Compare(inputList, giraphoutputList);
 
-    Writer writer = new Writer(comperator.match(), destpath);
-    writer.writeDot();
+    Writer writer = new Writer(inputList, destpath);
+    writer.writeADL();
 
 
   }

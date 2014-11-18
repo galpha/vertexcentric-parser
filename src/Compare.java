@@ -16,9 +16,9 @@ public class Compare {
 
   public ArrayList<Vertex> match() {
 
-    for(Vertex outputVertex : giraphoutput){
-      for(Vertex inputVertex : input){
-        if(outputVertex.getEdges().get(0).getTarget().equals(inputVertex)){
+    for (Vertex outputVertex : giraphoutput) {
+      for (Vertex inputVertex : input) {
+        if (inputVertex.equals(outputVertex.getEdges().get(0).getTarget())) {
           int r = inputVertex.getR();
           int g = inputVertex.getG();
           int b = inputVertex.getB();

@@ -80,7 +80,8 @@ public class Writer {
     } else {
 
       for (Vertex vertex : vertexList) {
-        fileWriter.write(String.format("%s %s",
+        fileWriter.write(String.format("%s %s %s",
+          vertex.getId(),
           vertex.getId(),
           vertex.getEdgesAsString()));
         fileWriter.newLine();

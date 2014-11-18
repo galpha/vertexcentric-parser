@@ -35,7 +35,11 @@ public class Vertex {
   public String getEdgesAsString() {
     String edgeString = "";
     for (Edge edge : edgeList) {
-      edgeString += edge.getTarget().getId() + " ";
+      if(edgeString.equals("")){
+        edgeString += edge.getTarget().getId();
+      }else {
+        edgeString += " " + edge.getTarget().getId();
+      }
     }
     return edgeString;
   }
