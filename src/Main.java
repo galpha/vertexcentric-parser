@@ -11,14 +11,14 @@ public class Main {
     throws IOException {
 
 
-    final String inputpath = "/home/galpha/testgraphs/CA-GrQc.txt";
+    final String inputpath = "/home/gomezk/testgraph/facebook_combined.txt";
     //final String giraphout = "/home/galpha/testgraphs/facebookoutput";
-    final String destpath = "/home/galpha/testgraphs/CA-GrQc_adl";
+    final String destpath = "/home/gomezk/testgraph/facebook_combined_adl";
 
     Reader reader = new Reader();
 
 
-    ArrayList<Vertex> inputList = reader.read(inputpath, "\t");
+    ArrayList<Vertex> inputList = reader.read(inputpath, " ");
     //ArrayList<Vertex> giraphoutputList = reader.read(giraphout, "\t");
 
 

@@ -9,68 +9,95 @@ import java.util.regex.Pattern;
  */
 public class Reader {
 
-  private BufferedReader br;
+    private BufferedReader br;
 
-  public Reader() {
-  }
+    public Reader() {
+    }
 
-  public ArrayList<Vertex> read(String path, String pattern)
-    throws IOException {
+    public ArrayList<Vertex> read(String path, String pattern)
+            throws IOException {
 
-    ArrayList<Vertex> vertexList = new ArrayList<>();
-    br = new BufferedReader(new FileReader((path)));
-    Pattern LINE_TOKEN_SEPARATOR = Pattern.compile(pattern);
-    System.out.println("Lese: " + path);
-    String line;
-    while ((line = br.readLine()) != null) {
-      String[] lineTokens = LINE_TOKEN_SEPARATOR.split(line);
-
-
-      if (vertexList.isEmpty()) {
-        Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
-        Vertex target = new Vertex(Integer.parseInt(lineTokens[1]));
-        vex.setEdge(target);
-        vertexList.add(vex);
-      } else {
+        ArrayList<Vertex> vertexList = new ArrayList<>();
+        br = new BufferedReader(new FileReader((path)));
+        Pattern LINE_TOKEN_SEPARATOR = Pattern.compile(pattern);
+        System.out.println("Lese: " + path);
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] lineTokens = LINE_TOKEN_SEPARATOR.split(line);
 
 
-        Vertex newVex = new Vertex(Integer.parseInt(lineTokens[0]));
-        boolean allreadyEdge = false;
+            if (vertexList.isEmpty()) {
 
-        if (vertexList.contains(newVex)) {
+                Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
+                Vertex target = new Vertex(Integer.parseInt(lineTokens[1]));
+                vex.setEdge(target);
+                target.setEdge(vex);
+                vertexList.add(vex);
+                vertexList.add(target);
 
-          for (int i = 0; i < vertexList.size(); i++) {
-            if (vertexList.get(i).equals(newVex)) {
-              ArrayList<Edge> edges= vertexList.get(i).getEdges();
-              for(Edge edge: edges){
-                if (edge.getTarget().equals(new Vertex(Integer.parseInt
-                  (lineTokens[1])))) {
-                  allreadyEdge = true;
+            } else {
+
+
+                Vertex newVex = new Vertex(Integer.parseInt(lineTokens[0]));
+                Vertex newTarget = new Vertex(Integer.parseInt(lineTokens[1]));
+
+                if(vertexList.contains(newVex)){
+                    if(vertexList.contains(newTarget)){
+                        for (int i = 0; i < vertexList.size(); i++) {
+                            if (vertexList.get(i).equals(newVex)) {
+                                vertexList.get(i).setEdge(newTarget);
+                            }
+                        }
+                        for (int i = 0; i < vertexList.size(); i++) {
+                            if (vertexList.get(i).equals(newTarget)) {
+                                vertexList.get(i).setEdge(newVex);
+                            }
+                        }
+                    }
                 }
-              }
-              if (!allreadyEdge) {
-                vertexList.get(i).setEdge(new Vertex(Integer.parseInt
-                  (lineTokens[1])));
-              }
-            }
-          }
 
-        } else {
-          Vertex newTarget = new Vertex(Integer.parseInt(lineTokens[1]));
-          newVex.setEdge(newTarget);
-          vertexList.add(newVex);
+                if(vertexList.contains(newVex)){
+                    if(!vertexList.contains(newTarget)) {
+                        for (int i = 0; i < vertexList.size(); i++) {
+                            if (vertexList.get(i).equals(newVex)) {
+                                vertexList.get(i).setEdge(newTarget);
+                                newTarget.setEdge(vertexList.get(i));
+                                vertexList.add(newTarget);
+                            }
+
+                        }
+                    }
+                }
+
+                if(!vertexList.contains(newVex)){
+                    if(vertexList.contains(newTarget)){
+                        for(int i=0;i<vertexList.size();i++) {
+                            if (vertexList.get(i).equals(newTarget)) {
+                                vertexList.get(i).setEdge(newVex);
+                                newVex.setEdge(vertexList.get(i));
+                                vertexList.add(newVex);
+                            }
+                        }
+                    }
+                }
+
+                if(!vertexList.contains(newVex)){
+                    if(!vertexList.contains(newTarget)){
+                        newVex.setEdge(newTarget);
+                        newTarget.setEdge(newVex);
+                        vertexList.add(newVex);
+                        vertexList.add(newTarget);
+                    }
+                }
+
+            }
+
 
         }
+        br.close();
 
-
-      }
-
+        return vertexList;
 
     }
-    br.close();
-
-    return vertexList;
-
-  }
 
 }
