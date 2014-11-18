@@ -13,7 +13,7 @@ public class Main {
 
     final String inputpath = "/home/gomezk/testgraph/facebook_combined.txt";
     //final String giraphout = "/home/galpha/testgraphs/facebookoutput";
-    final String destpath = "/home/gomezk/testgraph/facebook_combined_adl";
+    final String destpath = "/home/gomezk/testgraph/facebook_combined.dot";
 
     Reader reader = new Reader();
 
@@ -25,7 +25,7 @@ public class Main {
     //Compare comperator = new Compare(inputList, giraphoutputList);
 
     Writer writer = new Writer(inputList, destpath);
-    writer.writeADL();
+    writer.writeDot();
 
 
   }

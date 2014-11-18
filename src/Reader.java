@@ -30,6 +30,7 @@ public class Reader {
 
                 Vertex vex = new Vertex(Integer.parseInt(lineTokens[0]));
                 Vertex target = new Vertex(Integer.parseInt(lineTokens[1]));
+
                 vex.setEdge(target);
                 target.setEdge(vex);
                 vertexList.add(vex);
@@ -40,17 +41,30 @@ public class Reader {
 
                 Vertex newVex = new Vertex(Integer.parseInt(lineTokens[0]));
                 Vertex newTarget = new Vertex(Integer.parseInt(lineTokens[1]));
+                boolean allreadyEdge=false;
 
                 if(vertexList.contains(newVex)){
                     if(vertexList.contains(newTarget)){
                         for (int i = 0; i < vertexList.size(); i++) {
                             if (vertexList.get(i).equals(newVex)) {
-                                vertexList.get(i).setEdge(newTarget);
+                                for(Edge edge: vertexList.get(i).getEdges()){
+                                    if(edge.getTarget().equals(newTarget)) allreadyEdge=true;
+                                }
+                                if(!allreadyEdge){
+                                    vertexList.get(i).setEdge(newTarget);
+                                    allreadyEdge=false;
+                                }
                             }
                         }
                         for (int i = 0; i < vertexList.size(); i++) {
                             if (vertexList.get(i).equals(newTarget)) {
-                                vertexList.get(i).setEdge(newVex);
+                                for(Edge edge: vertexList.get(i).getEdges()){
+                                    if(edge.getTarget().equals(newVex)) allreadyEdge=true;
+                                }
+                                if(!allreadyEdge){
+                                    vertexList.get(i).setEdge(newVex);
+                                    allreadyEdge=false;
+                                }
                             }
                         }
                     }
