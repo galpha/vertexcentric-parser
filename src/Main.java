@@ -10,21 +10,21 @@ public class Main {
   public static void main(String[] args)
     throws IOException {
 
-
-    final String inputpath = "/home/gomezk/testgraph/facebook_combined.txt";
-    //final String giraphout = "/home/galpha/testgraphs/facebookoutput";
-    final String destpath = "/home/gomezk/testgraph/facebook_combined.dot";
+    //ToDo: Change to ColorMap for random Value output
+    final String inputpath = "/home/gomezk/testgraph/smallgraph";
+    final String giraphout = "/home/gomezk/testgraph/smallgraph_two_partition";
+    final String destpath = "/home/gomezk/testgraph/smallgraph_two_partitions.dot";
 
     Reader reader = new Reader();
 
 
     ArrayList<Vertex> inputList = reader.read(inputpath, " ");
-    //ArrayList<Vertex> giraphoutputList = reader.read(giraphout, "\t");
+    ArrayList<Vertex> giraphoutputList = reader.read(giraphout, "\t");
 
 
-    //Compare comperator = new Compare(inputList, giraphoutputList);
+    Compare comperator = new Compare(inputList, giraphoutputList);
 
-    Writer writer = new Writer(inputList, destpath);
+    Writer writer = new Writer(comperator.match(), destpath);
     writer.writeDot();
 
 
